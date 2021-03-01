@@ -153,6 +153,7 @@ Here [atom](https://atom.io/) is used as example; you can choose most of the tex
 In most of the cases, RStudio should automatically detect git when it is installed on your computer. The best way to check this is to go to the `Tools menu -> Global Options` and click on `git/SVN`
 
 If git is properly setup, the window should look like this:
+
 ![](screengitrstudio.png)
 
 Click `OK`.
