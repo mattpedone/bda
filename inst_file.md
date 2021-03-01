@@ -21,8 +21,11 @@ Although there many ways to start a new repository, [GitHub](https://github.com/
 GitHub is a company that hosts git repositories online and provides several collaboration features (among which forking). GitHub fosters a great user community and has built a nice web interface to git, also adding great visualization/rendering capacities of your data.
 
 <img src="https://cran.r-project.org/Rlogo.svg" alt="alt text" width="60" height="60">
+
 <img src="https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg" alt="alt text" width="250" height="50">
+
 <img src="https://git-scm.com/images/logo@2x.png" alt="alt text" width="120" height="40">
+
 <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="alt text" width="60" height="60">
 
 
