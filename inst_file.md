@@ -12,7 +12,7 @@ Git is a *free* and *open source* distributed version control system. It has man
 
 Git can be enabled on a specific folder/directory on your file system to version files within that directory (including sub-directories). In git (and other version control systems) terms, this "tracked folder" is called a repository (which formally is a specific data structure storing versioning information).
 
-Although there many ways to start a new repository, [GitHub](https://github.com/) (or any other cloud solutions, such as [GitLab](https://about.gitlab.com/) provide among the most convenient way of starting a repository.
+Although there many ways to start a new repository, [GitHub](https://github.com/) (or any other cloud solutions, such as [GitLab](https://about.gitlab.com/)) provides among the most convenient way of starting a repository.
 
 **git is not GitHub** (and vice versa)
 
@@ -21,14 +21,9 @@ Although there many ways to start a new repository, [GitHub](https://github.com/
 GitHub is a company that hosts git repositories online and provides several collaboration features (among which forking). GitHub fosters a great user community and has built a nice web interface to git, also adding great visualization/rendering capacities of your data.
 
 <img src="https://cran.r-project.org/Rlogo.svg" alt="alt text" width="60" height="60">
-
 <img src="https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg" alt="alt text" width="250" height="50">
-
 <img src="https://git-scm.com/images/logo@2x.png" alt="alt text" width="120" height="40">
-
 <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="alt text" width="60" height="60">
-
-
 
 What you should be able to do with this document is:
 
@@ -165,7 +160,7 @@ Note: if git was not enabled, you might be asked to restart RStudio to enable it
 
 ## Create your GitHub Account
 
-If you don't have a GitHub Account, please go to [github.com](https://github.com/), hit the `Sign up` button in top right corner, or hit the green `Sign up for GitHub` in the middle of the page.
+If you don't have a GitHub Account, please go to [github.com](https://github.com/), hit the `Sign up` button in the top right corner, or hit the green `Sign up for GitHub` in the middle of the page.
 They will both redirect you to this page:
 
 ![](screengh.png)
