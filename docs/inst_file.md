@@ -152,7 +152,7 @@ In most of the cases, RStudio should automatically detect git when it is install
 
 If git is properly setup, the window should look like this:
 
-![](screengitrstudio.png)
+![](../fig/screengitrstudio.png)
 
 Click `OK`.
 
@@ -163,7 +163,7 @@ Note: if git was not enabled, you might be asked to restart RStudio to enable it
 If you don't have a GitHub Account, please go to [github.com](https://github.com/), hit the `Sign up` button in the top right corner, or hit the green `Sign up for GitHub` in the middle of the page.
 They will both redirect you to this page:
 
-![](screengh.png)
+![](../fig/screengh.png)
 
 
 **I strongly suggest you to use the same email address you used for git configuration while [setting up git](#setting-up-your-git-identity)!**
