@@ -1,19 +1,13 @@
 ---
 title: "Tools for Reproducible Statistical Analysis"
+subtitle: "RStudio IDE & RMarkdown"
 author: "Matteo Pedone"
 date: "`r Sys.Date()`"
-headers:
-  - \usepackage{graphicx}
 output:
   ioslides_presentation:
     incremental: true
     widescreen: true
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
-
 ## What is reproducibility? ([Wiki](https://en.wikipedia.org/wiki/Reproducibility))
 
 * Reproducibility means that a result obtained by an experiment or observational study should be achieved again when the study is replicated with the same methodology by different researchers
@@ -221,7 +215,7 @@ For a quick way to [master Markdown](https://guides.github.com/features/masterin
 
 ## R Markdown components / chunks 1
 
-* Code chunks are where the magic happens in R Markdown
+* Code chunks are R Markdown's *core business*
 
 * The code you enter **within the text** gets executed and the results are shown in the document 
 

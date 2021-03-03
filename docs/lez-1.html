@@ -9,7 +9,7 @@
 
 
 
-  <meta name="date" content="2021-03-02" />
+  <meta name="date" content="2021-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,7 +21,8 @@
       // Slide settings
       settings: {
                 title: 'Tools for Reproducible Statistical Analysis',
-                        useBuilds: true,
+                        subtitle: 'RStudio IDE &amp; RMarkdown',
+                useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
         enableTouch: true,
@@ -3189,9 +3190,9 @@ slide:not(.current) .plotly.html-widget{
         <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
-      
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2021-03-02</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2021-03-03</p>
           </hgroup>
   </slide>
 
@@ -3422,7 +3423,7 @@ $$y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon$$</pre>
 </article></slide><slide class=""><hgroup><h2>R Markdown components / chunks 1</h2></hgroup><article  id="r-markdown-components-chunks-1">
 
 <ul class = 'build'>
-<li><p>Code chunks are where the magic happens in R Markdown</p></li>
+<li><p>Code chunks are R Markdown’s <em>core business</em></p></li>
 <li><p>The code you enter <strong>within the text</strong> gets executed and the results are shown in the document</p></li>
 <li><p>This sort of idea has been called <em>&ldquo;literate programming&rdquo;</em></p></li>
 <li><p>Ideally, such analysis reports are reproducible documents: If an error is discovered, or if some additional subjects are added to the data, you can just re-compile the report and get the new or corrected results</p></li>
