@@ -51,7 +51,7 @@ colorize <- function(x, color) {
 
 * it was conceived Torvalds to maintain the Linux kernel
 
-* it has been re-purposed by the data science community.
+* it has been re-purposed by the data science community
 
 * as Torvalds **git is unfriendly**
 
@@ -105,7 +105,7 @@ colorize <- function(x, color) {
 
 * you can easily do it in git using `r colorize ("branches", "green")` 
 
-* if you want to develop a new feature, or try a wild experiment working on a branch is **saver**
+* if you want to develop a new feature, or try a wild experiment working on a branch is **safer**
 
 * they can be easily thrown away
 
@@ -137,7 +137,7 @@ colorize <- function(x, color) {
 <img src="https://poeditor.com/blog/wp-content/uploads/2014/06/bitbucket-logo.png" alt="alt text" width="130" height="130">
 </center>
 
-* The advantage of [GitHub](https://github.com/) over [GitLab](https://about.gitlab.com/) or [Bitbucket](https://bitbucket.org/product/) is that it has a larger network.
+* the advantage of [GitHub](https://github.com/) over [GitLab](https://about.gitlab.com/) or [Bitbucket](https://bitbucket.org/product/) is that it has a larger network
 
 * if you send your local changes to the remote you have made a `r colorize ("push", "green")` 
 

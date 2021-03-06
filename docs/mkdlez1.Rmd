@@ -1,0 +1,145 @@
+---
+title: "Reading comprehension test Analysis"
+author: "Matteo Pedone"
+date: "`r format(Sys.time(), '%d/%m/%y')`"
+#date setup https://bookdown.org/yihui/rmarkdown-cookbook/update-date.html
+output: 
+  pdf_document:
+    extra_dependencies: ["bm"] # this package is useful for bolding greek letters (\boldsymbol{} would have worked well, too).
+#for details about Include additional LaTeX packages https://bookdown.org/yihui/rmarkdown-cookbook/latex-extra.html    
+bibliography: bibliography.bib
+link-citations: true
+nocite: |
+  @xie2020r
+#Bibliographies and Citations see https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html
+---
+
+```{r, include=FALSE}
+source("../R/fnchoff.R", local = knitr::knit_global())
+# for details see https://bookdown.org/yihui/rmarkdown-cookbook/source-script.html
+library(MASS)
+library(ash)
+load("../data/reading.RData")
+#reading <- mvtnorm::rmvnorm(25, c(55, 50), diag(100, 2))
+```
+
+## Reading Comprehension test data
+
+The following example is reported in @hoff2009first. It is the *Reading comprehension* example reported in chapter 7 *"The multivariate normal model"*.
+
+```{r}
+Y <- reading
+n <- dim(Y)[1]
+p <- dim(Y)[2]
+n
+p
+summy <- summary(Y)
+summy
+```
+
+### Descriptives
+
+The observed values $y_1, \dots, y_{22}$ are plotted in the following figure.
+```{r, echo=FALSE, fig.align = 'center'}
+plot(Y[, 1], Y[, 2], pch = 16, cex = .7, xlab = expression(italic(y[1])), ylab = expression(italic(y[2])),
+  xlim = c(0, 100), ylim = c(0, 100))
+```
+
+```{r, echo = FALSE}
+ybar <- as.numeric(apply(Y, 2 , mean))
+Sigma <- cov(Y)
+corry <- cor(Y)
+```
+The sample mean is $\bar{\bm{y}}=(`r round(ybar, 2)`)^T$, the sample variances are $s_21 = `r round(Sigma[1,1], 2)`$ and $s_22 = `r round(Sigma[2,2], 2)`$, and the sample correlation is $s_{1,2} /(s_1 \times s_2) =`r round(Sigma[1,2]/(sqrt(Sigma[1,1])*sqrt(Sigma[2,2])), 2)`$.
+
+## Multivariate Normal Model
+
+We will model these `r dim(Y)[1]` pairs of scores as i.i.d. samples from a multivariate normal distribution. We consider a `r p`-dimensional data vector $\bm{y}$, its sampling density is given by
+$$
+p(\bm{y}\mid \bm{\theta}, \Sigma) = (2\pi)^{-p/2}\mid\Sigma\mid^{-1/2}\exp\{-(\bm{y}-\bm{\theta})^T\Sigma^{-1}(\bm{y}-\bm{\theta})/2\}.
+$$
+### Prior distributions
+
+The prior distributions are:
+$$
+p(\bm{\theta})=MVN(\bm{\mu_0}, \bm{\Lambda_0}),
+$$
+$$
+p(\Sigma)=IW(\bm{S}_0, \nu_0).
+$$
+Following Hoff's guidelines our prior expectation is $\bm{\mu}_0 = (50, 50)^T$ and prior covariance 
+$$\bm{\Lambda}_0 = 
+  \begin{pmatrix}
+    625 & 312.5 \\
+    312.5 & 625 
+  \end{pmatrix}.$$
+  
+```{r, echo=FALSE}
+mu0 <- c(50, 50)
+L0 <- matrix(c(625, 312.5, 312.5, 625), nrow = 2, ncol = 2)
+
+nu0 <- p+2
+S0 <- matrix(c(625, 312.5, 312.5, 625), nrow = 2, ncol = 2)
+```
+
+  
+As for the prior distribution on $\bm{\Sigma}$, we'll take $\bm{S}_0$ to be the same as $\bm{\Lambda}_0$, but only
+loosely center $\bm{\Sigma}$ around this value by taking $\nu_0 = p + 2$.
+
+### Posterior Computation
+Let's use the Gibbs sampler to sample from the full conditional distributions. In this way we obtain an MCMC approximation to the joint posterior distribution $p(\bm{\theta}, \Sigma\mid y_1, \dots, y_n)$. Combining sample informations with our prior distributions we obtain estimates and confidence intervals for the population parameters.
+
+```{r}
+THETA <- SIGMA <- NULL
+YS <- NULL
+S <- 5000
+cat("here starts the mcmc!", "\n")
+for (s in 1:S) {
+  ### update theta
+  Ln <- solve(solve(L0) + n * solve(Sigma))
+  mun <- Ln %*% (solve(L0) %*% mu0 + n * solve(Sigma) %*% ybar)
+  theta <- rmvnorm(1, mun, Ln)
+  ### update Sigma
+  Sn <- solve(S0 + (t(Y) - c(theta)) %*% t(t(Y) - c(theta)))
+  Sigma <- solve(rwish(1, nu0 + n, Sn))
+  ###
+  YS <- rbind(YS, rmvnorm(1, theta, Sigma))
+  ### save results
+  THETA <- rbind(THETA, theta)
+  SIGMA <- rbind(SIGMA, c(Sigma))
+}
+cat("sampling is done", "\n")
+```
+
+The above code generates $5000$ values $(\{\bm{theta}^{(1)}, \Sigma^{(1)}\}), \dots, (\{\bm{theta}^{(5000)}, \Sigma^{(5000)}\})$, whose empirical distribution approximates $p(\bm{\theta}, \Sigma\mid\bm{y}_1, \dots, \bm{y}_n)$.
+
+From these samples we can approximate posterior probabilities and confidence regions of interest.
+```{r}
+quantile(THETA[, 2] - THETA[, 1], prob = c(.025, .5, .975))
+```
+
+## Conclusion
+
+The posterior probability $Pr(\theta_2 > \theta_1 \mid y1, \dots, y_n) = `r mean(THETA[, 2] > THETA[, 1])`$ indicates strong evidence that, if we were to give exams and instruction to a large population of children, then the average score on the second exam would be higher than
+that on the first. This evidence is displayed graphically in the first panel of next figure, which shows $97.5\%, 75\%, 50\%, 25\%$ and $2.5\%$ highest posterior density contours for the joint posterior distribution of $\bm{\theta} =(\theta_1, \theta_2)^T$. A highest posterior density contour is a two-dimensional analogue of a confidence interval. The contours for the posterior distribution of $\bm{\theta}$ are all mostly above the $45-$degree line $\theta_1=\theta_2$.
+
+```{r, echo=FALSE, fig.align = 'center'}
+par(mfrow = c(1, 2), mgp = c(1.75, .75, 0), mar = c(3, 3, 1, 1))
+
+plot.hdr2d(THETA, xlab = expression(theta[1]), ylab = expression(theta[2]))
+abline(0, 1)
+
+plot.hdr2d(YS,
+  xlab = expression(italic(y[1])), ylab = expression(italic(y[2])),
+  xlim = c(0, 100), ylim = c(0, 100)
+)
+points(Y[, 1], Y[, 2], pch = 16, cex = .7)
+abline(0, 1)
+```
+
+
+## References
+<!--
+now in the first chunk comment line
+load("../data/reading.RData")
+and uncomment last line-->
