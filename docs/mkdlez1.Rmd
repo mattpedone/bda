@@ -58,6 +58,7 @@ We will model these `r dim(Y)[1]` pairs of scores as i.i.d. samples from a multi
 $$
 p(\bm{y}\mid \bm{\theta}, \Sigma) = (2\pi)^{-p/2}\mid\Sigma\mid^{-1/2}\exp\{-(\bm{y}-\bm{\theta})^T\Sigma^{-1}(\bm{y}-\bm{\theta})/2\}.
 $$
+
 ### Prior distributions
 
 The prior distributions are:
@@ -67,7 +68,7 @@ $$
 $$
 p(\Sigma)=IW(\bm{S}_0, \nu_0).
 $$
-Following Hoff's guidelines our prior expectation is $\bm{\mu}_0 = (50, 50)^T$ and prior covariance 
+Following @hoff2009first 's guidelines our prior expectation is $\bm{\mu}_0 = (50, 50)^T$ and prior covariance 
 $$\bm{\Lambda}_0 = 
   \begin{pmatrix}
     625 & 312.5 \\
@@ -111,7 +112,7 @@ for (s in 1:S) {
 cat("sampling is done", "\n")
 ```
 
-The above code generates $5000$ values $(\{\bm{theta}^{(1)}, \Sigma^{(1)}\}), \dots, (\{\bm{theta}^{(5000)}, \Sigma^{(5000)}\})$, whose empirical distribution approximates $p(\bm{\theta}, \Sigma\mid\bm{y}_1, \dots, \bm{y}_n)$.
+The above code generates $5000$ values $(\{\bm{\theta}^{(1)}, \Sigma^{(1)}\}), \dots, (\{\bm{\theta}^{(5000)}, \Sigma^{(5000)}\})$, whose empirical distribution approximates $p(\bm{\theta}, \Sigma\mid\bm{y}_1, \dots, \bm{y}_n)$.
 
 From these samples we can approximate posterior probabilities and confidence regions of interest.
 ```{r}
