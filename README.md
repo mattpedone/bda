@@ -8,3 +8,7 @@ couple of lessons for Bayesian Data Analysis course
 * `data/reading.RData` contains the data set used in RMarkdown tutorial
 * `docs/bibliography.bib` contains the bibliography needed in RMarkdown tutorial
 * `docs/mkdlez1.Rmd` contains the RMarkdown tutorial
+
+to create Pdfs from .Rmd use 
+
+`pagedown::chrome_print("path_to_your_doc/myfile.Rmd")`

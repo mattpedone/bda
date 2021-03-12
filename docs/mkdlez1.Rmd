@@ -19,6 +19,7 @@ source("../R/fnchoff.R", local = knitr::knit_global())
 # for details see https://bookdown.org/yihui/rmarkdown-cookbook/source-script.html
 library(MASS)
 library(ash)
+library(kableExtra)
 load("../data/reading.RData")
 #reading <- mvtnorm::rmvnorm(25, c(55, 50), diag(100, 2))
 ```
@@ -26,6 +27,7 @@ load("../data/reading.RData")
 ## Reading Comprehension test data
 
 The following example is reported in @hoff2009first. It is the *Reading comprehension* example reported in chapter 7 *"The multivariate normal model"*.
+
 
 ```{r}
 Y <- reading
@@ -40,7 +42,7 @@ summy
 ### Descriptives
 
 The observed values $y_1, \dots, y_{22}$ are plotted in the following figure.
-```{r, echo=FALSE, fig.align = 'center'}
+```{r, echo=FALSE, fig.align="center"}
 plot(Y[, 1], Y[, 2], pch = 16, cex = .7, xlab = expression(italic(y[1])), ylab = expression(italic(y[2])),
   xlim = c(0, 100), ylim = c(0, 100))
 ```
@@ -50,13 +52,13 @@ ybar <- as.numeric(apply(Y, 2 , mean))
 Sigma <- cov(Y)
 corry <- cor(Y)
 ```
-The sample mean is $\bar{\bm{y}}=(`r round(ybar, 2)`)^T$, the sample variances are $s_21 = `r round(Sigma[1,1], 2)`$ and $s_22 = `r round(Sigma[2,2], 2)`$, and the sample correlation is $s_{1,2} /(s_1 \times s_2) =`r round(Sigma[1,2]/(sqrt(Sigma[1,1])*sqrt(Sigma[2,2])), 2)`$.
+The sample mean is $\bar{\bm{y}}=(`r round(ybar, 2)`)^T$, the sample variances are $s_{21} = `r round(Sigma[1,1], 2)`$ and $s_{22} = `r round(Sigma[2,2], 2)`$, and the sample correlation is $s_{1,2} /(s_1 \times s_2) =`r round(Sigma[1,2]/(sqrt(Sigma[1,1])*sqrt(Sigma[2,2])), 2)`$.
 
 ## Multivariate Normal Model
 
 We will model these `r dim(Y)[1]` pairs of scores as i.i.d. samples from a multivariate normal distribution. We consider a `r p`-dimensional data vector $\bm{y}$, its sampling density is given by
 $$
-p(\bm{y}\mid \bm{\theta}, \Sigma) = (2\pi)^{-p/2}\mid\Sigma\mid^{-1/2}\exp\{-(\bm{y}-\bm{\theta})^T\Sigma^{-1}(\bm{y}-\bm{\theta})/2\}.
+p(\boldsymbol{y} \mid \boldsymbol{\theta}, \Sigma) = (2\pi)^{-p/2}\mid\Sigma\mid^{-1/2}\exp\{-(\boldsymbol{y}-\boldsymbol{\theta})^T\Sigma^{-1}(\boldsymbol{y}-\boldsymbol{\theta})/2\}.
 $$
 
 ### Prior distributions
@@ -74,7 +76,7 @@ $$\bm{\Lambda}_0 =
     625 & 312.5 \\
     312.5 & 625 
   \end{pmatrix}.$$
-  
+
 ```{r, echo=FALSE}
 mu0 <- c(50, 50)
 L0 <- matrix(c(625, 312.5, 312.5, 625), nrow = 2, ncol = 2)
@@ -83,7 +85,7 @@ nu0 <- p+2
 S0 <- matrix(c(625, 312.5, 312.5, 625), nrow = 2, ncol = 2)
 ```
 
-  
+ 
 As for the prior distribution on $\bm{\Sigma}$, we'll take $\bm{S}_0$ to be the same as $\bm{\Lambda}_0$, but only
 loosely center $\bm{\Sigma}$ around this value by taking $\nu_0 = p + 2$.
 
@@ -116,6 +118,11 @@ The above code generates $5000$ values $(\{\bm{\theta}^{(1)}, \Sigma^{(1)}\}), \
 
 From these samples we can approximate posterior probabilities and confidence regions of interest.
 ```{r}
+#load("../data/res.RData")
+#THETA <- output$Thetapost
+#SIGMA <- output$Sigmapost
+#YS <- output$Ypost
+
 quantile(THETA[, 2] - THETA[, 1], prob = c(.025, .5, .975))
 ```
 
@@ -139,8 +146,9 @@ abline(0, 1)
 ```
 
 
+  
 ## References
-<!--
-now in the first chunk comment line
+
+<!--now in the first chunk comment line
 load("../data/reading.RData")
 and uncomment last line-->
