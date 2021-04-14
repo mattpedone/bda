@@ -1,4 +1,4 @@
-plotmix <- function(mu1 = 2.5, mu2 = 0, p = 0.7, n = 5000, nl = 50){
+plotmix <- function(mu1 = 2.5, mu2 = 0, p = 0.7, n = 5000, plottin = TRUE, nl = 50){
   #plottin = TRUE,
   pbar = 1 - p
   u = runif(n)
@@ -13,16 +13,16 @@ plotmix <- function(mu1 = 2.5, mu2 = 0, p = 0.7, n = 5000, nl = 50){
     like = like + log(p * exp(ca1 + sampl[i] * mo1) + pbar * exp(ca2 + sampl[i] * mo2))
   }
   like = like + 0.1 * (ca1 + ca2)
-  #if (plottin) {
-  #  par(mar = c(4, 4, 1, 1))
-  #  image(mu1, mu2, like, xlab = expression(mu[1]), ylab = expression(mu[2]), 
-  #        col = heat.colors(250))
-  #  contour(mu1, mu2, like, levels = seq(min(like), max(like), 
-  #                                       length = nl), add = TRUE, drawlabels = FALSE)
-  #}
+  if (plottin) {
+    par(mar = c(4, 4, 1, 1))
+    image(mu1, mu2, like, xlab = expression(mu[1]), ylab = expression(mu[2]), 
+          col = heat.colors(250))
+    contour(mu1, mu2, like, levels = seq(min(like), max(like), 
+                                         length = nl), add = TRUE, drawlabels = FALSE)
+  }
   list(sample = sampl, like = like)
 }
 
-#out <- plotmix(mu1 = 2.5, mu2 = 0, p = 0.7, n = 500, plottin = TRUE, nl = 50)
+out <- plotmix(mu1 = 2.5, mu2 = 0, p = 0.7, n = 500, plottin = TRUE, nl = 50)
 
-#hist(out$sample, breaks = 5000)
+hist(out$sample, breaks = 5000)

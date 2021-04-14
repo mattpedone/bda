@@ -50,3 +50,6 @@ kd <- with(mydf, MASS::kde2d(X1, X2, n = n))
 fig <- plot_ly(x = kd$x, y = kd$y, z = kd$z) %>% add_surface()
 fig
 
+#Figure 3
+library(bayess)
+plotmix(mu1 = 2.5, mu2 = 0, p = 0.7, n = 500, plottin = TRUE, nl = 50)
