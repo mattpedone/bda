@@ -74,11 +74,33 @@ plotmix(mu1 = 2.5, mu2 = 0, p = 0.5, n = 500, plottin = TRUE, nl = 50)
 library(DirichletReg)
 source(file = "R/utils.R")
 
-p1 <- plot(DR_data(rdirichlet(1000, c(1, 1, 1))), cex = 0.5, a2d = list(colored = TRUE, c.grid = FALSE), 
-           dim.labels = c(expression(alpha[1]), expression(alpha[2]), expression(alpha[3])))
+plot.DirichletRegData(DR_data(rdirichlet(1000, c(1, 1, 1))), cex = 0.5, 
+                      a2d = list(colored = TRUE, c.grid = FALSE), 
+                      dim.labels = c(expression(alpha[1]), expression(alpha[2]), 
+                                     expression(alpha[3])))
 
-p2 <- plot(DR_data(rdirichlet(1000, c(.1, .1, .1))), cex = 0.5, a2d = list(colored = TRUE, c.grid = FALSE), 
-           dim.labels = c(expression(alpha[1]), expression(alpha[2]), expression(alpha[3])))
+plot.DirichletRegData(DR_data(rdirichlet(1000, c(.1, .1, .1))), cex = 0.5, 
+                      a2d = list(colored = TRUE, c.grid = FALSE), 
+                      dim.labels = c(expression(alpha[1]), expression(alpha[2]), 
+                                     expression(alpha[3])))
 
-p3 <- plot(DR_data(rdirichlet(1000, c(10, 10, 10))), cex = 0.5, a2d = list(colored = TRUE, c.grid = FALSE), 
-           dim.labels = c(expression(alpha[1]), expression(alpha[2]), expression(alpha[3])))
+plot.DirichletRegData(DR_data(rdirichlet(1000, c(10, 10, 10))), 
+                      cex = 0.5, a2d = list(colored = TRUE, c.grid = FALSE), 
+                      dim.labels = c(expression(alpha[1]), expression(alpha[2]), 
+                                     expression(alpha[3])))
+
+plot.DirichletRegData(DR_data(rdirichlet(1000, c(.6, .3, .1))), 
+                      cex = 0.5, a2d = list(colored = TRUE, c.grid = FALSE), 
+                      dim.labels = c(expression(alpha[1]), expression(alpha[2]), 
+                                     expression(alpha[3])))
+
+plot.DirichletRegData(DR_data(rdirichlet(1000, c(6, 3, 1))), 
+                      cex = 0.5, a2d = list(colored = TRUE, c.grid = FALSE), 
+                      dim.labels = c(expression(alpha[1]), expression(alpha[2]), 
+                                     expression(alpha[3])))
+
+plot.DirichletRegData(DR_data(rdirichlet(1000, c(12, 6, 2))), 
+                      cex = 0.5, a2d = list(colored = TRUE, c.grid = FALSE), 
+                      dim.labels = c(expression(alpha[1]), expression(alpha[2]), 
+                                     expression(alpha[3])))
+
