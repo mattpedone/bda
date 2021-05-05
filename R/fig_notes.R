@@ -1,5 +1,16 @@
-#Figure 1
-n <- 10000
+# Figure 1
+library(MASS)
+gal <- galaxies/1000
+c(width.SJ(gal, method = "dpi"), width.SJ(gal))
+plot(x = c(5, 35), y = c(0, 0.25), type = "n", bty = "l",
+     xlab = "velocity of galaxy (1000km/s)", ylab = "density")
+rug(gal, col = "blue")
+hist(gal, breaks = 25, freq = FALSE, add = TRUE)
+lines(density(gal, width = 1.75, n = 200), lwd = 1.5, lty = 4, col = "red")
+
+#Figure 2
+library(sm)
+n <- 100000
 pro <- c(0.3,0.5,0.2)
 y <- vector(length=n)
 label <- vector(length=n)
@@ -26,8 +37,9 @@ mymixture <- list(y = y, label = label)
 labf <- factor(mymixture$label, levels = c(1, 2, 3))
 sm.density.compare(mymixture$y, mymixture$label, xlab="y", ylab="density",
                    xlim = c(0, 6))
+lines(yden, lwd = 3.0, xlim = c(0, 6))
 
-#Figure 2
+#Figure 3
 library(plotly)
 library(mvtnorm)
 n <- 1000
@@ -50,6 +62,10 @@ kd <- with(mydf, MASS::kde2d(X1, X2, n = n))
 fig <- plot_ly(x = kd$x, y = kd$y, z = kd$z) %>% add_surface()
 fig
 
-#Figure 3
+#Figure 4
 library(bayess)
 plotmix(mu1 = 2.5, mu2 = 0, p = 0.7, n = 500, plottin = TRUE, nl = 50)
+
+#Figure 5
+library(bayess)
+plotmix(mu1 = 2.5, mu2 = 0, p = 0.5, n = 500, plottin = TRUE, nl = 50)
