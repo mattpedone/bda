@@ -1,15 +1,17 @@
-gendata <- function(){
-  n <- 1000
-  pro=c(0.2,0.5,0.3)
-  data <- vector(length=100)
+# sample from a simple mixture of 3 (specified) gaussians
+gendata <- function(n = 1000, pro = c(0.2,0.5,0.3)){
+  if(length(pro) != 3){
+    stop("The length of probabilities must be equal to 3!")
+  }
+  data <- vector(length = n)
   for(i in 1:n){
     u <- runif(1)
-    if(u<pro[1]){
+    if(u < pro[1]){
       #cat(i,"ciao1","\n")
       data[i] <- rnorm(1,mean=-2.1,sd=0.5)
     }
     else{
-      if(u<(pro[1]+pro[2])){
+      if(u < (pro[1] + pro[2])){
         #cat(i,"ciao2","\n")
         data[i] <- rnorm(1,mean=0,sd=0.5)
       }
