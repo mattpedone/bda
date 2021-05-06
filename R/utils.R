@@ -1,4 +1,4 @@
-# sample from a simple mixture of 3 (specified) gaussians
+# samples from a simple mixture of 3 (specified) gaussians
 gendata <- function(n = 1000, pro = c(0.2,0.5,0.3)){
   if(length(pro) != 3){
     stop("The length of probabilities must be equal to 3!")
@@ -24,15 +24,15 @@ gendata <- function(n = 1000, pro = c(0.2,0.5,0.3)){
   return (data)
 }
 
-rdirichlet <- function (n = 1, par = rep(1, 2)) 
-{
-  k = length(par)
-  mat = matrix(0, n, k)
-  for (i in 1:n) {
-    sim = rgamma(k, shape = par, scale = 1)
-    mat[i, ] = sim/sum(sim)
+#samples from a dirichlet rv using independent gamma random variables
+rdirichlet <- function(n = 1, alpha = c(1,1,1)){
+  K <- length(alpha)
+  q <- matrix(0, n, K)
+  for(i in 1:n){
+    z <- rgamma(K, shape = alpha, scale = 1.0)
+    q[i, ] <- z/sum(z)
   }
-  mat
+  return(q)
 }
 
 my_gibbs_s <- function (niter, dat, mix) 
