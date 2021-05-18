@@ -59,11 +59,11 @@ my_gibbs_s <- function (niter, y, mixpar){
     lik[, g] <- etag[1, g] * dnorm(x = y, mean = mug[1, g], sd = sqrt(sigg[1, g]))
   }
   logpost[1] <- sum(log(apply(lik, 1, sum))) + sum(dnorm(mug[1,], mg, sqrt(sigg[1, ]), log = TRUE)) - 
-    (10 + 1) * sum(log(sigg[1, ])) - sum(c(s2)/sigg[1, ]) + 0.5 * sum(log(etag[1, ]))
+    (nu/2 + 1) * sum(log(sigg[1, ])) - sum(c(s2)/sigg[1, ]) + 0.5 * sum(log(etag[1, ]))
   
   #begins the MCMC (riga 2 algorithm 1)
   for(t in 1:(niter - 1)){
-    #loop over observation (riga 3 algorithm 1)
+    #loop over observations (riga 3 algorithm 1)
     for(i in 1:n){
       #compute p(z_i=g|\theta, \eta) eq. 2.1
       prob <- etag[t, ] * dnorm(y[i], mean = mug[t, ], sd = sqrt(sigg[t, ]))
@@ -95,7 +95,7 @@ my_gibbs_s <- function (niter, y, mixpar){
       }
     logpost[t + 1] = sum(log(apply(lik, 1, sum))) + 
       sum(dnorm(mug[t + 1, ], mg, sqrt(sigg[t + 1, ]), log = TRUE)) - 
-      (10 + 1) * sum(log(sigg[t + 1, ])) - sum(c(s2)/sigg[t + 1, ]) + 
+      (nu/2 + 1) * sum(log(sigg[t + 1, ])) - sum(c(s2)/sigg[t + 1, ]) + 
       0.5 * sum(log(etag[t + 1, ]))
   }
   #return

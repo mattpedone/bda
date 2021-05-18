@@ -3,19 +3,19 @@ source(file = "R/utils.R")
 set.seed(121)
 y <- gendata()
 ##uncommenting the following line and setting G = 5, nu = 150, alphag = 1.5 we can observe label switching
-#y <- scale(MASS::galaxies/1000)
+y <- scale(MASS::galaxies/1000)
 
 #quantities for MCMC & hyperparameter specification
 ndraw <- 10000
-G <- 3
-mixpar <- list(G = G, mu = mean(y), sig = var(y), nu = 20, alphag = .5)#nu = 150, alphag = 1.5#
+G <- 5
+mixpar <- list(G = G, mu = mean(y), sig = var(y), nu = 150, alphag = 1.5)#nu = 150, alphag = 1.5#
 
 #run Gibbs sampler
 out <- my_gibbs_s(ndraw, y = y, mixpar = mixpar)
 
 #mixture density plot
-hist(y, prob=TRUE, main="", xlab="", ylab="", nclass=100, ylim = c(0, .5))#1.5
-hist(y, prob=TRUE, main="", xlab="", ylab="", nclass=100, ylim = c(0, 0.5))#2.0
+hist(y, prob=TRUE, main="", xlab="", ylab="", nclass=100, ylim = c(0, 1.5))#1.5
+hist(y, prob=TRUE, main="", xlab="", ylab="", nclass=100, ylim = c(0, 2.0))#2.0
 x <- yl <- seq(min(y), max(y), length=150)
 yy <- matrix(0, ncol=150, nrow=ndraw)
 
